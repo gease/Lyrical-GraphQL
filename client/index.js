@@ -1,11 +1,18 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import * as ReactDOM from 'react-dom/client';
+import {ApolloClient, InMemoryCache, ApolloProvider} from '@apollo/client';
 
-const Root = () => {
-  return <div>Lyrical</div>
-};
+import SongsList from "./Components/SongsList";
 
-ReactDOM.render(
-  <Root />,
-  document.querySelector('#root')
+const client = new ApolloClient({
+  uri: 'http://localhost:4000/graphql',
+  cache: new InMemoryCache()
+});
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+
+root.render(
+    <ApolloProvider client={client}>
+        <SongsList />
+    </ApolloProvider>,
 );
